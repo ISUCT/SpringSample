@@ -1,5 +1,6 @@
 package hello;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
  */
 @Controller
 public class GreetingController {
+    @Autowired
+    private UserRepository userRepository;
     @RequestMapping("/greeting")
     public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
@@ -29,18 +32,9 @@ public class GreetingController {
 
     @RequestMapping("/user")
     public String calculate(@RequestParam(value="name", required=false, defaultValue="nope") String usr,Model model) {
-        User user1 = new User();
-        user1.setAge(10);
-        user1.setId(5);
-        user1.setName("Test1");
-        User user2 = new User();
-        user2.setAge(20);
-        user2.setId(10);
-        user2.setName("Test2");
-        ArrayList<User> users = new ArrayList<>();
-        users.add(user1);
-        users.add(user2);
-        model.addAttribute("mdl", users);
+
+        model.addAttribute("mdl", userRepository.findAll());
+
         return "users";
     }
 
