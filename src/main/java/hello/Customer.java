@@ -1,9 +1,6 @@
 package hello;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by jskonst on 05.04.17.
@@ -17,6 +14,9 @@ public class Customer {
 
     private String firstName;
     private String lastName;
+
+    @ManyToOne
+    private User user;
 
     protected Customer() {}
 
@@ -54,5 +54,13 @@ public class Customer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
